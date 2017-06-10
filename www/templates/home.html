@@ -1,0 +1,9 @@
+<ion-view view-title="Ristorante con Fusion">
+  <ion-content>
+    <ion-list>
+    <ion-item ng-repeat="dish in Dishes" href=#/app/menu/{{dish.id}}>
+        {{dish.name}}
+    </ion-item>
+    </ion-list>
+    </ion-content>
+</ion-view>
