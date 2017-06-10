@@ -1,5 +1,5 @@
 # Multiplatform Mobile App Development with Web Technologies
-======
+
 ## The Hong Kong University of Science and Technology
 ------
 ### Link
