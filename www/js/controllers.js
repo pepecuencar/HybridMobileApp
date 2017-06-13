@@ -28,18 +28,16 @@ angular.module('conFusion.controllers', [])
         },1000);
     })
     
-    .controller('MenuController', ['$scope', 'menuFactory', function($scope, menuFactory) {
+    .controller('MenuController', ['$scope', 'menuFactory','baseURL', function($scope, menuFactory, baseURL) {
             
+            $scope.baseURL = baseURL;
             $scope.tab = 1;
             $scope.filtText = '';
-            $scope.showDetails = false;
-            $scope.showMenu = false;
             $scope.message = "Loading ...";
             
             menuFactory.getDishes().query(
                 function(response) {
                     $scope.dishes = response;
-                    $scope.showMenu = true;
                 },
                 function(response) {
                     $scope.message = "Error: "+response.status + " " + response.statusText;
@@ -104,17 +102,16 @@ angular.module('conFusion.controllers', [])
             };
         }])
 
-        .controller('DishDetailController', ['$scope', '$stateParams', 'menuFactory', function($scope, $stateParams, menuFactory) {
+        .controller('DishDetailController', ['$scope', '$stateParams', 'menuFactory','baseURL', function($scope, $stateParams, menuFactory, baseURL) {
             
+            $scope.baseURL = baseURL;
             $scope.dish = {};
-            $scope.showDish = false;
             $scope.message="Loading ...";
             
             $scope.dish = menuFactory.getDishes().get({id:parseInt($stateParams.id,10)})
             .$promise.then(
                             function(response){
                                 $scope.dish = response;
-                                $scope.showDish = true;
                             },
                             function(response) {
                                 $scope.message = "Error: "+response.status + " " + response.statusText;
@@ -148,8 +145,6 @@ angular.module('conFusion.controllers', [])
                                         
                         $scope.baseURL = baseURL;
                         $scope.leader = corporateFactory.get({id:3});
-                        $scope.showDish = false;
-                        $scope.message="Loading ...";
                         $scope.dish = menuFactory.getDishes().get({id:0})
                         .$promise.then(
                             function(response){
@@ -164,8 +159,9 @@ angular.module('conFusion.controllers', [])
             
                     }])
 
-        .controller('AboutController', ['$scope', 'corporateFactory', function($scope, corporateFactory) {
+        .controller('AboutController', ['$scope', 'corporateFactory','baseURL', function($scope, corporateFactory,baseURL) {
             
+                    $scope.baseURL = baseURL;
                     $scope.leaders = corporateFactory.query();
                     console.log($scope.leaders);
             

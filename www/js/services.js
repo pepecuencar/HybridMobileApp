@@ -1,7 +1,7 @@
 'use strict';
 
 angular.module('conFusion.services', ['ngResource'])
-        .constant("baseURL","http://192.168.1.72:3000/")
+        .constant("baseURL","http://localhost:3000/")
         .service('menuFactory', ['$resource', 'baseURL', function($resource,baseURL) {
     
             var promotions = [
@@ -32,15 +32,10 @@ angular.module('conFusion.services', ['ngResource'])
         }])
 
         .factory('corporateFactory', ['$resource', 'baseURL', function($resource,baseURL) {
-    
-    
             return $resource(baseURL+"leadership/:id");
-    
         }])
 
         .factory('feedbackFactory', ['$resource', 'baseURL', function($resource,baseURL) {
-    
-    
             return $resource(baseURL+"feedback/:id");
     
         }])
