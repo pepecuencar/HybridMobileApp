@@ -55,22 +55,23 @@ angular.module('conFusion.controllers', [])
 
 })
 
-    .controller('MenuController', ['$scope', 'menuFactory','baseURL', function($scope, menuFactory, baseURL) {
+    .controller('MenuController', ['$scope', 'menuFactory','favoriteFactory','baseURL', '$ionicListDelegate', function($scope, menuFactory, favoriteFactory, baseURL, $ionicListDelegate) {
             
             $scope.baseURL = baseURL;
             $scope.tab = 1;
             $scope.filtText = '';
             $scope.message = "Loading ...";
             
-            menuFactory.getDishes().query(
+        
+            $scope.dishes = menuFactory.getDishes().query(
                 function(response) {
                     $scope.dishes = response;
                 },
                 function(response) {
                     $scope.message = "Error: "+response.status + " " + response.statusText;
-                });
-
-                        
+                }
+            );
+            
             $scope.select = function(setTab) {
                 $scope.tab = setTab;
                 
@@ -95,7 +96,14 @@ angular.module('conFusion.controllers', [])
             $scope.toggleDetails = function() {
                 $scope.showDetails = !$scope.showDetails;
             };
-        }])
+        
+            $scope.addFavorite = function (index){
+                console.log("index is " + index);
+                
+                favoriteFactory.addToFavorites(index);
+                $ionicListDelegate.closeOptionButtons();
+            }
+    }])
 
         .controller('ContactController', ['$scope', function($scope) {
 
