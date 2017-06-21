@@ -4,6 +4,7 @@ angular.module('conFusion.controllers', [])
     .controller('AppCtrl',function ($scope, $ionicModal, $timeout) {
     
     $scope.loginData = {};
+    $scope.reservation = {};
     
     $ionicModal.fromTemplateUrl('templates/login.html',{
      scope: $scope
@@ -21,13 +22,39 @@ angular.module('conFusion.controllers', [])
      
      $scope.doLogin = function(){
         console.log('Doing login',$scope.loginData);
+        $scope.closeLogin();
      }
-    
+      
     $timeout(function(){
         $scope.closeLogin();
         },1000);
-    })
     
+    $ionicModal.fromTemplateUrl('templates/reserve.html',{
+     scope: $scope
+        }).then(function(modal){
+        $scope.reserveform = modal;
+    });
+
+    $scope.closeReserve = function(){
+        $scope.reserveform.hide();    
+    }
+    
+    $scope.reserve = function(){
+        $scope.reserveform.show();
+    }
+     
+     $scope.doReserve = function(){
+        console.log('Doing Reserve',$scope.reservation);
+         $scope.closeReserve();
+     }
+     
+     $timeout(function(){
+        $scope.closeReserve();
+        },1000);
+
+
+})
+
     .controller('MenuController', ['$scope', 'menuFactory','baseURL', function($scope, menuFactory, baseURL) {
             
             $scope.baseURL = baseURL;
