@@ -1,7 +1,7 @@
 'use strict';
 
 angular.module('conFusion.services', ['ngResource'])
-        .constant("baseURL","http://localhost:3000/")
+        .constant("baseURL","http://ec2-54-224-26-248.compute-1.amazonaws.com:3000/")
         .service('menuFactory', ['$resource', 'baseURL', function($resource,baseURL) {
     
             var promotions = [
