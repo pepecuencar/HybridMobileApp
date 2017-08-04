@@ -1,36 +1,20 @@
 'use strict';
 
 angular.module('conFusion.services', ['ngResource'])
-        .constant("baseURL","http://ec2-54-224-26-248.compute-1.amazonaws.com:3000/")
-        .service('menuFactory', ['$resource', 'baseURL', function($resource,baseURL) {
-    
-            var promotions = [
-                {
-                          _id:0,
-                          name:'Weekend Grand Buffet', 
-                          image: 'images/buffet.png',
-                          label:'New',
-                          price:'19.99',
-                          description:'Featuring mouthwatering combinations with a choice of five different salads, six enticing appetizers, six main entrees and five choicest desserts. Free flowing bubbly and soft drinks. All for just $19.99 per person ',
+        .constant("baseURL","http://127.0.0.1:3000/")
+        .factory('menuFactory', ['$resource', 'baseURL', function ($resource, baseURL) {
+            return $resource(baseURL + "dishes/:id", null, {
+                'update': {
+                    method: 'PUT'
                 }
-                
-            ];
-    
-                this.getDishes = function(){
-                    
-                    return $resource(baseURL+"dishes/:id",null,  {'update':{method:'PUT' }});
-                    
-                };
-    
-                // implement a function named getPromotion
-                // that returns a selected promotion.
-                this.getPromotion = function() {
-                    return   $resource(baseURL+"promotions/:id");;
-                }
-    
-                        
+            });
         }])
 
+        .factory('promotionFactory', ['$resource', 'baseURL', function ($resource, baseURL) {
+            return $resource(baseURL + "promotions/:id");
+
+        }])
+    
         .factory('corporateFactory', ['$resource', 'baseURL', function($resource,baseURL) {
             return $resource(baseURL+"leadership/:id");
         }])
@@ -64,9 +48,7 @@ angular.module('conFusion.services', ['ngResource'])
                 }
             };
 
-            
             return favFac;
             
         }])
-
 ;
